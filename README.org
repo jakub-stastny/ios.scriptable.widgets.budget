@@ -1,0 +1,47 @@
+* About
+
+Widget to keep track of your current spendings throughout the week.
+
+# TODO: ilustrate what the piggie shows every day throughout the week, as it being based by days is not quite obvious, as in it's not showing how much do you have available for the week, but only how much do you have available up to now.
+
+/This is currently work in progress. It works, but it needs refactoring and reworking the graphics which is shite right now./
+
+[[widget.jpg]]
+
+* Assumptions
+
+- You are budgeting per week.
+- You are looking to see whether you're on top of your spendings as defined by your own spending curve.
+- You update your spendings daily (by running =Update spendings= shortcut or compatible).
+
+* Features
+
+** Spending curve
+
+Let's say you have $210 for the week. It's unlikely that you are going to spend every day approximately the same amount. You're more likely to have regular spending patterns, such as shopping on Sunday and spending cca 3x the normal daily budget.
+
+And that's where spending curves come in: to allow you describe just that.
+
+For instance I go shopping on Monday to farmers market and on Thursday to a supermarket. The rest of the days I just go to the nearest store and I don't spend as much. So my spending curve is:
+
+#+BEGIN_SRC javascript
+const marketAllowance = 150
+const supermarketAllowance = 300
+
+//      Monday,       T, W,          Thursday,                F, S, S
+[marketAllowance + n, n, n, supermarketAllowance + (2/3 * n), n, n, n]
+#+END_SRC
+
+This means that on Monday I get my market allowance /as well as/ my daily allowance to buy in store, as I don't buy everything in the market, on Tuesday and Wednesday just my daily allowance, on Thursday my supermarket allowance /as well as/ 2/3 of my daily allowance (the supermarket is a bit far, I walk there and some things I just don't want to buy there) and then only my daily allowance the rest of the week.
+
+* Dependencies
+
+- Update spendings shortcut # TODO: link
+- Piggie image: create subdirectory called `Widgets` in the Scriptable directory and save =piggie.jpg= there.
+
+* Configuration
+
+- =totalBudget=
+- First day of the week.
+- Calendar name.
+- Spending curve.
